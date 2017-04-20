@@ -16,7 +16,7 @@ import compose from './compose';
  * @param {...Function} middlewares The middleware chain to be applied.
  * @returns {Function} A store enhancer applying the middleware.
  */
-export default function applyMiddleware(middlewares) {
+export default function applyMiddleware(...middlewares) {
     return (createStore) => (reducer, initialState, enhancer) => {
         const store = createStore(reducer, initialState, enhancer);
         let dispatch = store.dispatch;

@@ -167,7 +167,7 @@ export default function createStore(reducer, preloadedState, enhancer) {
 
         try {
             isDispatching = true;
-            currentState = reducer(currentState, action);
+            currentState = currentReducer(currentState, action);
         } finally {
             isDispatching = false;
         }
