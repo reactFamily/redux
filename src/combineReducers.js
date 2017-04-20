@@ -106,13 +106,13 @@ export default function combineReducers(reducers) {
         const key = reducerKeys[i];
 
         if (process.env.NODE_ENV !== 'production') {
-            if (typeof reducerKeys[key] === 'undefined') {
+            if (typeof reducers[key] === 'undefined') {
                 warning(`No reducer provided for key "${key}"`);
             }
         }
 
-        if (typeof reducerKeys[key] === 'function') {
-            finalReducers[key] = reducerKeys[key];
+        if (typeof reducers[key] === 'function') {
+            finalReducers[key] = reducers[key];
         }
     }
     const finalReducerKeys = Object.keys(finalReducers);
