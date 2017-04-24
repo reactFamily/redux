@@ -21,7 +21,7 @@ export function todos(state = [], action) {
     }
 }
 
-export function todoReverse(state = [], action) {
+export function todosReverse(state = [], action) {
     switch (action.type) {
         case ADD_TODO:
             return [

@@ -229,7 +229,7 @@ export default function createStore(reducer, preloadedState, enhancer) {
                 }
 
                 observeState();
-                const unsubscribe = outerSubscribe(observeState());
+                const unsubscribe = outerSubscribe(observeState);
                 return {unsubscribe};
             },
 
