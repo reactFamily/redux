@@ -6,7 +6,15 @@
   "scripts": {
     "clean": "rimraf lib dist es coverage",
     "lint": "eslint src test build",
-    "test": "cross-env BABEL_ENV=commonjs jest"
+    "test": "cross-env BABEL_ENV=commonjs jest",
+    "test:watch": "yarn test -- --watch",
+    "test:cov": "yarn test -- --coverage",
+    "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir lib",
+    "build:es": "cross-env BABEL_ENV=es babel src --out-dir es",
+    "build:umd": "cross-env BABEL_ENV=es NODE_ENV=development rollup -c -i src/index.js -o dist/redux.js",
+    "build:umd:min": "cross-env BABEL_ENV=es NODE_ENV=production rollup -c -i src/index.js -o dist/redux.min.js",
+    "build": "yarn run build:commonjs && yarn run build:es && yarn run build:umd && yarn run build:umd:min",
+    "prepublish": "yarn run clean && yarn run lint && yarn test && yarn run build && check-es3-syntax lib/ dist/ --kill --print"
   },
   "repository": {
     "type": "git",
@@ -19,6 +27,8 @@
   },
   "homepage": "https://github.com/reactFamily/redux#readme",
   "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.1",
     "babel-eslint": "^7.2.2",
     "babel-jest": "^19.0.0",
     "babel-plugin-check-es2015-constants": "^6.22.0",
@@ -42,6 +52,8 @@
     "babel-plugin-transform-es3-member-expression-literals": "^6.22.0",
     "babel-plugin-transform-es3-property-literals": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-register": "^6.24.1",
+    "check-es3-syntax-cli": "^0.2.0",
     "cross-env": "^4.0.0",
     "eslint": "^3.19.0",
     "eslint-config-react-app": "^0.6.2",
@@ -51,12 +63,19 @@
     "eslint-plugin-react": "^6.10.3",
     "jest": "^19.0.2",
     "rimraf": "^2.6.1",
+    "rollup": "^0.41.6",
+    "rollup-plugin-babel": "^2.7.1",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-replace": "^1.1.1",
+    "rollup-plugin-uglify": "^1.0.2",
     "rxjs": "^5.3.0"
   },
   "jest": {
     "testRegex": "(/test/.*\\.spec.js)$"
   },
   "dependencies": {
+    "lodash": "^4.17.4",
+    "lodash-es": "^4.17.4",
     "symbol-observable": "^1.0.4"
   }
 }
