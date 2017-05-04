@@ -30,7 +30,7 @@ export const REPO_FAILURE = 'REPO_FAILURE';
 
 // Fetches a single repository from Github API.
 // Relies on the custom API middleware defined in ../middleware/api.js.
-const fetchRepo = fullName = ({
+const fetchRepo = fullName => ({
     [CALL_API]: {
         types: [REPO_REQUEST, REPO_SUCCESS, REPO_FAILURE],
         endpoint: `repos/${fullName}`,
@@ -71,7 +71,7 @@ export const loadStarred = (login, nextPage) => (dispatch, getState) => {
     const {
         nextPageUrl = `users/${login}/starred`,
         pageCount = 0
-    } = getState.pagination.starredByUser[login] || {};
+    } = getState().pagination.starredByUser[login] || {};
 
     if (pageCount > 0 && !nextPage) {
         return null;

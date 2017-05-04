@@ -108,7 +108,7 @@ export default store => next => action => {
 
     const [requestType, successType, failureType] = types;
     next(actionWith({type: requestType}));
-    return callAPI(endpoint, schema).then(
+    return callApi(endpoint, schema).then(
         response => next(actionWith({
             response,
             type: successType
